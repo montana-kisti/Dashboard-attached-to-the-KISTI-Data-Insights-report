@@ -641,13 +641,13 @@ function drawKPIs(R){
 function drawFoot(R){
   $('#foot').innerHTML=`<b>산출 방법.</b> CPP(Collaboration Partner Premium) = 한국–협력국 j 양자 공동논문의 평균 FWCI − 대체 협력국 기준값.
   기본 기준은 <b>LOPO</b>(Leave-One-Partner-Out): 국가 j를 제외한 한국의 다른 모든 양자 국제공동연구 평균. 
-  <b>VORP</b> = CPP(LOPO) × 논문수 (대체 협력국 대비 총 초과 피인용 성과). 95% CI는 논문 단위 FWCI 표준편차 기반. <br><b>대체국 풀.</b> ‘관심국가’ 선택 시 대체선수(replacement) 풀과 분석 대상을 OECD 37개국 + 유라시아 주요국(중국·대만·홍콩·인도·파키스탄·싱가포르·베트남·러시아·사우디)로 제한하여 CPP·LOPO·국가균등·VORP를 그 안에서 재계산합니다(OpenAlex–RoR(Research Organization Registry) 연계 과정의 국가 식별 오류가 의심되는 예멘·푸에르토리코·에티오피아 등 자동 제외).
+  <b>VORP</b> = CPP(LOPO) × 논문수 (대체 협력국 대비 총 초과 피인용 성과). 95% CI는 논문 단위 FWCI 표준편차 기반. <br><b>대체국 풀.</b> ‘관심국가’ 선택 시 대체선수(replacement) 풀과 분석 대상을 OECD 37개국 + OECD외 한국 주요 협력국(중국·대만·홍콩·인도·파키스탄·싱가포르·베트남·러시아·사우디)으로 제한하여 CPP·LOPO·국가균등·VORP를 그 안에서 재계산합니다(OpenAlex–RoR(Research Organization Registry) 연계 과정의 국가 식별 오류가 의심되는 예멘·푸에르토리코·에티오피아 등 자동 제외).
   <br><b>대상.</b> OpenAlex 2000–2025년, 유형=article/review, 저자 2인 이상·기관 2개 이상, 한국 소속기관 포함, 참여국가 1개(국내) 또는 정확히 2개(양자).
   상대국 코드가 식별되지 않는 KR-전용 표기 논문 ${num(META.unknown)}건은 협력국 분석에서 제외. 상단 KPI의 ‘양자 국제협력 ${num(META.intl)}편’은 모든 협력 상대국을 포함한 전체 값이며, ‘관심국가’ 선택 시 분석은 그 부분집합(약 16,670편)을 대상으로 합니다.
   <b>*</b> 2025년은 데이터베이스 구축 기준 시점(2025년 상반기) 때문에 논문 수가 부분적임(실제 감소가 아님).
   <br><b>통계적 유의성.</b> FWCI는 극도로 우편향(왜도≈10)이라 개별 값은 정규분포가 아니지만, CPP는 <b>집단 평균의 차이</b>이므로 표본이 큰 경우(N≥30) 중심극한정리에 의해 <b>Welch t-검정</b>(이분산, Welch–Satterthwaite 자유도)이 타당하며, 충분통계량(n·합·제곱합)으로 산출해 모든 조건에서 실시간 재계산됩니다. 부트스트랩 평균차 95% CI와 96% 일치, Mann–Whitney U(순위 기반)와도 대체로 일치함을 확인했습니다. 여러 국가를 한꺼번에 검정하면 우연히 유의해지는 국가가 늘어나므로, <b>위발견율(FDR†)</b> 보정을 기본 적용하고 ‘원 p값’으로 전환할 수 있습니다. ★ = 95% 유의. 효과크기는 Cohen’s d(툴팁). <b>†</b> FDR(False Discovery Rate, 위발견율): 유의하다고 판정한 가설들 가운데 실제로는 효과가 없는(위양성) 비율의 기댓값으로, 검정 횟수가 많을수록 늘어나므로 이를 일정 수준 이하로 통제하는 다중검정 보정 절차(Benjamini & Hochberg, 1995). <b>주의:</b> 점추정이 커도 표본이 작고 분산이 크면(예: 홍콩·대만) 유의하지 않을 수 있습니다. <b>경험적 베이즈 축소</b>(‘베이즈 축소’ 체크): 협력국 전체를 확률효과 모형으로 보고 DerSimonian–Laird 추정치 τ²로 각 국가의 CPP를 정밀도에 비례해 전체 평균으로 수축시킴(소표본 노이즈 완화). 축소가중 B=τ²/(τ²+SE²)가 1에 가까울수록 원값 유지, 0에 가까울수록 평균으로 수렴.
   <br><b>주의.</b> CPP는 상관적 성과 차이이며 인과효과가 아닙니다(분야 구성·자기선택·저널 선택 효과 가능). 표본이 작은 국가는 신뢰구간이 넓습니다. FWCI 결측은 0으로 처리.
-  <br><span style="color:var(--muted)">주요 참고문헌: Benjamini & Hochberg (1995); DerSimonian & Laird (1986); Larivière et al. (2015). 출처: OpenAlex (pyear ≥ 2000). KISTI Global R&D · Data Insight 2026.</span>`;
+  <br><span style="color:var(--muted)">주요 참고문헌: Benjamini & Hochberg (1995); DerSimonian & Laird (1986); Larivière et al. (2015). 출처: OpenAlex (pyear ≥ 2000). KISTI Global R&D · Data Insight 2026.</span><div style="margin-top:12px;padding-top:10px;border-top:1px solid var(--border);color:var(--muted);line-height:1.6"><b>공개 안내.</b> 이 대시보드는 2026 KISTI DATA INSIGHT 보고서 「대체 협력국 대비 성과로 바라본 한국의 국제공동연구 파트너」(전승표·이철·유형선)의 분석 자료를, 독자의 이해와 활용을 돕기 위해 공개한 것입니다(문의: <a href="mailto:spjun@kisti.re.kr" style="color:var(--s1)">spjun@kisti.re.kr</a>).<br>본 대시보드의 내용은 KISTI의 공식 견해나 분석 결과가 아니라 저자 개인의 견해이며, 참고·인용 시 출처를 밝혀 주시기 바랍니다.</div>`;
 }
 
 // ========== RQ4 reciprocity (partner-perspective) ==========
@@ -861,7 +861,7 @@ function renderAll(){
   const nf=$('#filtnote');
   const fld=ST.field!=='all'?ST.field:(ST.domain!=='all'?DOMKR[ST.domain]+' 분야':'전체 분야');
   const lead=[...ST.leads].map(i=>LEADKR[['KR','JOINT','FOR'][i]]).join('·');
-  nf.innerHTML=`현재: <span class="pill">${fld}</span><span class="pill">${ST.y0}–${ST.y1}</span><span class="pill">${lead}</span><span class="pill">N ≥ ${ST.minN}</span><span class="pill">기준 ${baseName()}</span><span class="pill">풀: ${ST.pool==='interest'?'관심국가(OECD+유라시아)':'전체 국제협력'}</span> · 조건 충족 협력국 <b>${R.sig.length}</b>개국`;
+  nf.innerHTML=`현재: <span class="pill">${fld}</span><span class="pill">${ST.y0}–${ST.y1}</span><span class="pill">${lead}</span><span class="pill">N ≥ ${ST.minN}</span><span class="pill">기준 ${baseName()}</span><span class="pill">풀: ${ST.pool==='interest'?'관심국가(OECD+주요협력국)':'전체 국제협력'}</span> · 조건 충족 협력국 <b>${R.sig.length}</b>개국`;
 }
 
 // ========== controls ==========
