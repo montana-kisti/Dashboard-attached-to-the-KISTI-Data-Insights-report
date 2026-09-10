@@ -526,8 +526,8 @@ function drawTrend(R){
   const partners=R.sig.filter(r=>r.cpp_lopo!=null).slice().sort((a,b)=>b.n-a.n).slice(0,6).map(r=>r.pi);
   if(!partners.length){box.innerHTML='<div class="empty">데이터 없음</div>';return;}
   // periods
-  const PER=[[2000,2007],[2008,2013],[2014,2019],[2020,2025]];
-  const plab=PER.map(p=>p[0]+'–'+String(p[1]).slice(2));
+  const PER=[[2000,2004],[2005,2009],[2010,2014],[2015,2019],[2020,2025]];
+  const plab=PER.map(p=>p[0]+'–'+p[1]);
   // per period: intl tot + per partner
   const perAcc=PER.map(()=>({tot:[0,0],per:{}}));
   for(let k=0;k<CUBE.length;k++){const r=CUBE[k]; if(!ST.leads.has(r[3]))continue;
